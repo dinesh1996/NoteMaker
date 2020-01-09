@@ -15,7 +15,7 @@ const createNoteNavigation = createStackNavigator(
         initialRouteName: 'Home',
         defaultNavigationOptions: {
             headerStyle: {
-                backgroundColor: '#555'
+                backgroundColor: '#5e5ce6'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
