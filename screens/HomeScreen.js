@@ -1,23 +1,16 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import ItemNote from '../components/ItemNote';
 import { ActivityIndicator } from 'react-native-paper';
+import ItemNote from '../components/ItemNote';
+import DatabaseService from '../services/databaseService';
 
 class HomeScreen extends Component {
-
     state = {
-        notes: [
-            {
-                name: "test 1",
-                text: "du texte"
-            },
-            {
-                name: "test 2",
-                text: "encore du texte"
-            }
-        ]
-    }
+        notes: []
+    };
+
+    databaseService = new DatabaseService();
 
     static navigationOptions = e => {
         return {
@@ -35,19 +28,31 @@ class HomeScreen extends Component {
         };
     };
 
-    delete = () => {
-        console.log("delete");
+    componentDidMount() {
+        this.databaseService.initDatabase();
+        this.databaseService.getNotes().then(result => {
+            this.setState({ notes: result.rows._array });
+        });
     }
+
+    delete = () => {
+        console.log('delete');
+    };
 
     render() {
         return (
             <View style={{ flex: 1 }}>
                 {this.state.notes ? (
-                    <FlatList data={this.state.notes}
-                        renderItem={(e) => (
-                            <ItemNote key={e.item.name} note={e.item} onDelete={this.delete} />
-                        )} />
-                ) : (<ActivityIndicator />)}
+                    <FlatList
+                        data={this.state.notes}
+                        renderItem={e => (
+                            <ItemNote key={e.item.id} note={e.item} onDelete={this.delete} />
+                        )}
+                        keyExtractor={item => item.id.toString()}
+                    />
+                ) : (
+                    <ActivityIndicator />
+                )}
             </View>
         );
     }
