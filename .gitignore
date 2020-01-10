@@ -54,4 +54,7 @@ android/captures/
  
 ### Android Patch ###
 gen-external-apklibs
+
 output.json
+node_modules
+ios/build/notes-maker

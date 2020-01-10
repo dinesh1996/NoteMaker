@@ -20,6 +20,16 @@ class HomeScreen extends Component {
                         e.navigation.push('AddNote');
                     }}
                 />
+            ),
+            headerLeft: (
+                <Icon
+                    size={25}
+                    name="md-share"
+                    style={{ padding: 10 }}
+                    onPress={() => {
+                        e.navigation.push('Sharing');
+                    }}
+                />
             )
         };
     };
