@@ -26,12 +26,10 @@ class ItemNote extends Component {
 
     render() {
         return (
-            <SwipeRow leftOpenValue={75} rightOpenValue={75} key={this.state.data.name}>
-                <View style={{ alignItems: 'center', backgroundColor: '#CCC', flex: 1, padding: 15 }}>
-                    <Button title="Suppr." onPress={() => this.props.onDelete(this.state.data.name)}></Button>
-                </View>
-                <View>
-                    <Button title="Suppr." onPress={() => this.props.onDelete(this.state.data.name)}></Button>
+            <SwipeRow leftOpenValue={80} rightOpenValue={-80} key={this.state.data.name}>
+                <View style={{ alignItems: 'center', backgroundColor: '#CCC', flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <Button style={{ padding: 10 }} title="Suppr." onPress={() => this.props.onDelete(this.state.data.name)}></Button>
+                    <Button style={{ padding: 20 }} title="lock ." onPress={() => this.props.onDelete(this.state.data.name)}></Button>
                 </View>
                 <View style={styles.standaloneRowFront}>
                     <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
