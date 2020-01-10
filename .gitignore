@@ -1,4 +1,5 @@
 node_modules/**/*
+.vscode
 .expo/*
 npm-debug.*
 *.jks
@@ -14,3 +15,42 @@ web-report/
 .DS_Store
 android/gradle/wrapper
 ios/Pods
+
+### Android ###
+# Built application files
+android/*.apk
+android/*.ap_
+android/*.aab
+
+# Files for the ART/Dalvik VM
+android/*.dex
+
+# Java class files
+android/*.class
+
+# Generated files
+android/bin/
+android/gen/
+android/out/
+android/release/
+
+# Gradle files
+android/.gradle/
+android/build/
+
+# Local configuration file (sdk path, etc)
+android/local.properties
+
+ 
+# Log Files
+android/*.log
+
+# Android Studio Navigation editor temp files
+android/.navigation/
+
+# Android Studio captures folder
+android/captures/
+ 
+### Android Patch ###
+gen-external-apklibs
+output.json
