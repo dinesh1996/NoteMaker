@@ -46,7 +46,11 @@ class HomeScreen extends Component {
                     <FlatList
                         data={this.state.notes}
                         renderItem={e => (
-                            <ItemNote key={e.item.id} note={e.item} onDelete={this.delete} />
+                            <ItemNote
+                                key={e.item.id}
+                                note={e.item}
+                                onDelete={this.delete}
+                            />
                         )}
                         keyExtractor={item => item.id.toString()}
                     />
