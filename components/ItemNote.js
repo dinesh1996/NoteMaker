@@ -7,29 +7,47 @@ class ItemNote extends Component {
     static propTypes = {
         onDelete: PropTypes.func.isRequired,
         note: PropTypes.any.isRequired
-    }
+    };
 
     state = {
         data: {}
-    }
+    };
 
     componentDidMount() {
-        /*this.props.serv.getWeatherByCity(c).then((resp) => {
+        /* this.props.serv.getWeatherByCity(c).then((resp) => {
             
             this.setState({ data: resp.data });
-        });*/
+        }); */
         this.setState({ data: this.props.note });
     }
 
     render() {
         return (
             <SwipeRow leftOpenValue={80} rightOpenValue={-80} key={this.state.data.title}>
-                <View style={{ alignItems: 'center', backgroundColor: '#CCC', flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Button style={{ padding: 10 }} title="Suppr." onPress={() => this.props.onDelete(this.state.data.title)}></Button>
-                    <Button style={{ padding: 20 }} title="lock ." onPress={() => this.props.onDelete(this.state.data.title)}></Button>
+                <View
+                    style={{
+                        alignItems: 'center',
+                        backgroundColor: '#CCC',
+                        flex: 1,
+                        flexDirection: 'row',
+                        justifyContent: 'space-between'
+                    }}
+                >
+                    <Button
+                        style={{ padding: 10 }}
+                        title="Suppr."
+                        onPress={() => this.props.onDelete(this.state.data.title)}
+                    />
+                    <Button
+                        style={{ padding: 20 }}
+                        title="lock ."
+                        onPress={() => this.props.onDelete(this.state.data.title)}
+                    />
                 </View>
                 <View style={styles.standaloneRowFront}>
-                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <View
+                        style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}
+                    >
                         <Text>{this.state.data.title} </Text>
                     </View>
                 </View>
@@ -45,7 +63,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#CCC',
         justifyContent: 'center',
-        height: 80,
+        height: 80
     },
     standaloneRowBack: {
         alignItems: 'center',
@@ -53,9 +71,9 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: 15,
+        padding: 15
     },
     backTextWhite: {
-        color: '#FFF',
+        color: '#FFF'
     }
 });

@@ -11,7 +11,7 @@ class AddNoteScreen extends Component {
     render() {
         return (
             <>
-                <Text> Add Note </Text>
+                <Text>Add Note </Text>
             </>
         );
     }

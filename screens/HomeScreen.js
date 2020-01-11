@@ -6,12 +6,6 @@ import ItemNote from '../components/ItemNote';
 import DatabaseService from '../services/databaseService';
 
 class HomeScreen extends Component {
-    state = {
-        notes: []
-    };
-
-    databaseService = new DatabaseService();
-
     static navigationOptions = e => {
         return {
             title: 'HomePage',
@@ -19,14 +13,32 @@ class HomeScreen extends Component {
                 <Icon
                     size={25}
                     name="ios-add"
-                    style={{ padding: 10 }}
+                    style={{
+                        padding: 10
+                    }}
                     onPress={() => {
                         e.navigation.push('AddNote');
+                    }}
+                />
+            ),
+            headerLeft: (
+                <Icon
+                    size={25}
+                    name="md-share"
+                    style={{ padding: 10 }}
+                    onPress={() => {
+                        e.navigation.push('Sharing');
                     }}
                 />
             )
         };
     };
+
+    state = {
+        notes: []
+    };
+
+    databaseService = new DatabaseService();
 
     componentDidMount() {
         this.databaseService.initDatabase();
@@ -46,16 +58,15 @@ class HomeScreen extends Component {
                     <FlatList
                         data={this.state.notes}
                         renderItem={e => (
-                            <ItemNote
-                                key={e.item.id}
-                                note={e.item}
-                                onDelete={this.delete}
-                            />
+                            <ItemNote key={e.item.id} note={e.item} onDelete={this.delete} />
                         )}
                         keyExtractor={item => item.id.toString()}
                     />
                 ) : (
-                    <ActivityIndicator />
+                    <>
+                        <Text>Noting to show</Text>
+                        <ActivityIndicator />
+                    </>
                 )}
             </View>
         );
