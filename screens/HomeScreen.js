@@ -63,7 +63,10 @@ class HomeScreen extends Component {
                         keyExtractor={item => item.id.toString()}
                     />
                 ) : (
-                    <ActivityIndicator />
+                    <>
+                        <Text>Noting to show</Text>
+                        <ActivityIndicator />
+                    </>
                 )}
             </View>
         );

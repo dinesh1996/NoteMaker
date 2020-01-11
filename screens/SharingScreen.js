@@ -21,7 +21,6 @@ class SharingScreen extends Component {
 
     componentDidMount() {
         this.getPermissionAsync();
-        console.log('hi');
     }
 
     getPermissionAsync = async () => {
