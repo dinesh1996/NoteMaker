@@ -58,3 +58,5 @@ gen-external-apklibs
 output.json
 node_modules
 ios/build/notes-maker
+ios/notes-maker.xcworkspace
+ios/notes-maker.xcodeproj

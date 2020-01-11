@@ -1,3 +1,6 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
 import { Button, Text, Image, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';

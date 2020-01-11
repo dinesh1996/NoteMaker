@@ -1,3 +1,6 @@
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -48,13 +51,19 @@ class HomeScreen extends Component {
     }
 
     delete = () => {
-        console.log('delete');
+        console.info('delete');
     };
 
     render() {
         return (
             <View style={{ flex: 1 }}>
-                {this.state.notes ? (
+                {this.state.notes === null ? (
+                    <>
+                        <View>
+                            <Text> Noting to show </Text> <ActivityIndicator />
+                        </View>{' '}
+                    </>
+                ) : (
                     <FlatList
                         data={this.state.notes}
                         renderItem={e => (
@@ -62,11 +71,6 @@ class HomeScreen extends Component {
                         )}
                         keyExtractor={item => item.id.toString()}
                     />
-                ) : (
-                    <>
-                        <Text>Noting to show</Text>
-                        <ActivityIndicator />
-                    </>
                 )}
             </View>
         );

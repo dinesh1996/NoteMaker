@@ -1,5 +1,10 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/static-property-placement */
+/* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
-import { View, Button, StyleSheet, Text, Image } from 'react-native';
+import { View, Button, StyleSheet, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import { SwipeRow } from 'react-native-swipe-list-view';
 
@@ -23,7 +28,7 @@ class ItemNote extends Component {
 
     render() {
         return (
-            <SwipeRow leftOpenValue={80} rightOpenValue={-80} key={this.state.data.title}>
+            <SwipeRow leftOpenValue={80} rightOpenValue={-80} key={this.state.data.name}>
                 <View
                     style={{
                         alignItems: 'center',
@@ -36,19 +41,19 @@ class ItemNote extends Component {
                     <Button
                         style={{ padding: 10 }}
                         title="Suppr."
-                        onPress={() => this.props.onDelete(this.state.data.title)}
+                        onPress={() => this.props.onDelete(this.state.data.name)}
                     />
                     <Button
                         style={{ padding: 20 }}
                         title="lock ."
-                        onPress={() => this.props.onDelete(this.state.data.title)}
+                        onPress={() => this.props.onDelete(this.state.data.name)}
                     />
                 </View>
                 <View style={styles.standaloneRowFront}>
                     <View
                         style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}
                     >
-                        <Text>{this.state.data.title} </Text>
+                        <Text> {this.state.data.name} </Text>
                     </View>
                 </View>
             </SwipeRow>
