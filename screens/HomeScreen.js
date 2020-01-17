@@ -2,11 +2,14 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, FlatList } from 'react-native';
+import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { ActivityIndicator } from 'react-native-paper';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import ItemNote from '../components/ItemNote';
-import DatabaseService from '../services/databaseService';
+import { getAll } from '../redux/actions/notesActions';
 
 class HomeScreen extends Component {
     static navigationOptions = e => {
@@ -17,10 +20,10 @@ class HomeScreen extends Component {
                     size={25}
                     name="ios-add"
                     style={{
-                        padding: 10
+                        padding: 25
                     }}
                     onPress={() => {
-                        e.navigation.push('AddNote');
+                        e.navigation.push('Authentication');
                     }}
                 />
             ),
@@ -28,7 +31,7 @@ class HomeScreen extends Component {
                 <Icon
                     size={25}
                     name="md-share"
-                    style={{ padding: 10 }}
+                    style={{ padding: 25 }}
                     onPress={() => {
                         e.navigation.push('Sharing');
                     }}
@@ -37,17 +40,18 @@ class HomeScreen extends Component {
         };
     };
 
-    state = {
-        notes: []
+    static propTypes = {
+        getAll: PropTypes.func.isRequired,
+        notes: PropTypes.array.isRequired
     };
 
-    databaseService = new DatabaseService();
+    state = {
+        notes: null
+    };
 
     componentDidMount() {
-        this.databaseService.initDatabase();
-        this.databaseService.getNotes().then(result => {
-            this.setState({ notes: result.rows._array });
-        });
+        this.props.getAll();
+        this.setState({ notes: this.props.notes });
     }
 
     delete = () => {
@@ -58,11 +62,9 @@ class HomeScreen extends Component {
         return (
             <View style={{ flex: 1 }}>
                 {this.state.notes === null ? (
-                    <>
-                        <View>
-                            <Text> Noting to show </Text> <ActivityIndicator />
-                        </View>{' '}
-                    </>
+                    <View>
+                        <ActivityIndicator />
+                    </View>
                 ) : (
                     <FlatList
                         data={this.state.notes}
@@ -77,4 +79,16 @@ class HomeScreen extends Component {
     }
 }
 
-export default HomeScreen;
+const mapStateToProps = stateStore => {
+    return {
+        notes: stateStore.notes.notes
+    };
+};
+
+const mapActionsToProps = payload => {
+    return {
+        getAll: bindActionCreators(getAll, payload)
+    };
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(HomeScreen);
