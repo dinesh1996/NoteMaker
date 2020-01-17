@@ -11,7 +11,7 @@ import DatabaseService from '../services/databaseService';
 class HomeScreen extends Component {
     static navigationOptions = e => {
         return {
-            title: 'HomePage',
+            title: 'Home Page',
             headerRight: (
                 <Icon
                     size={25}
@@ -64,14 +64,14 @@ class HomeScreen extends Component {
                         </View>{' '}
                     </>
                 ) : (
-                    <FlatList
-                        data={this.state.notes}
-                        renderItem={e => (
-                            <ItemNote key={e.item.id} note={e.item} onDelete={this.delete} />
-                        )}
-                        keyExtractor={item => item.id.toString()}
-                    />
-                )}
+                        <FlatList
+                            data={this.state.notes}
+                            renderItem={e => (
+                                <ItemNote key={e.item.id} note={e.item} onDelete={this.delete} />
+                            )}
+                            keyExtractor={item => item.id.toString()}
+                        />
+                    )}
             </View>
         );
     }
