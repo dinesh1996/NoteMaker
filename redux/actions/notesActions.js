@@ -1,6 +1,7 @@
 import DatabaseService from '../../services/databaseService';
 
 export const NOTES_ALL = 'NOTES_ALL';
+export const NOTE_ADD = 'NOTE_ADD';
 
 const databaseService = new DatabaseService();
 
@@ -13,20 +14,12 @@ export const getAll = () => {
     };
 };
 
-// export const addNoteAsync = payload => {
-//     return dispatch => {
-//         AsyncStorage.getItem('NOTES').then(data => {
-//             let tab = [];
-//             if (data !== null) {
-//                 tab = JSON.parse(data);
-//             }
-//             tab.push(payload);
-//             AsyncStorage.setItem('NOTES', JSON.stringify(tab)).then(() => {
-//                 return dispatch({ type: NOTES_ALL, payload: tab });
-//             });
-//         });
-//     };
-// };
+export const addNote = payload => {
+    return dispatch => {
+        databaseService.addNote(payload.title, payload.content);
+        return dispatch({ type: NOTE_ADD, payload });
+    };
+};
 
 // export const deleteAsync = noteTitle => {
 //     return dispatch => {

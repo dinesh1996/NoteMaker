@@ -6,7 +6,7 @@ class Database {
     initDatabase() {
         this.db.transaction(tx => {
             tx.executeSql(
-                'create table if not exists notes (id integer primary key not null, title varchar(255));'
+                'create table if not exists notes (id integer primary key not null, title varchar(255), content text);'
             );
         });
     }
@@ -31,10 +31,10 @@ class Database {
         });
     }
 
-    addNote(title) {
+    addNote(title, content) {
         return this.db.transaction(
             tx => {
-                tx.executeSql('insert into notes (title) values (?)', [title]);
+                tx.executeSql('insert into notes (title, content) values (?, ?)', [title, content]);
             },
             null,
             this.getNotes

@@ -42,7 +42,7 @@ class AuthenticationScreen extends Component {
                     authenticated: true,
                     failedCount: 0
                 });
-                this.props.navigation.push('AddNote');
+                this.props.navigation.navigate('AddNote');
             } else {
                 this.setState({
                     failedCount: this.state.failedCount + 1
