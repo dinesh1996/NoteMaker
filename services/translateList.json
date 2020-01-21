@@ -1,0 +1,228 @@
+{
+    "data": [
+        {
+            "Key": "am",
+            "Value": "Amharic"
+        },
+        {
+            "Key": "ar",
+            "Value": "Arabic"
+        },
+        {
+            "Key": "eu",
+            "Value": "Basque"
+        },
+        {
+            "Key": "bn",
+            "Value": "Bengali"
+        },
+        {
+            "Key": "en-GB",
+            "Value": "English(UK)"
+        },
+        {
+            "Key": "pt-BR",
+            "Value": "Portuguese(Brazil)"
+        },
+        {
+            "Key": "bg",
+            "Value": "Bulgarian"
+        },
+        {
+            "Key": "ca",
+            "Value": "Catalan"
+        },
+        {
+            "Key": "chr",
+            "Value": "Cherokee"
+        },
+        {
+            "Key": "hr",
+            "Value": "Croatian"
+        },
+        {
+            "Key": "cs",
+            "Value": "Czech"
+        },
+        {
+            "Key": "da",
+            "Value": "Danish"
+        },
+        {
+            "Key": "nl",
+            "Value": "Dutch"
+        },
+        {
+            "Key": "en",
+            "Value": "English(US)"
+        },
+        {
+            "Key": "et",
+            "Value": "Estonian"
+        },
+        {
+            "Key": "fil",
+            "Value": "Filipino"
+        },
+        {
+            "Key": "fi",
+            "Value": "Finnish"
+        },
+        {
+            "Key": "fr",
+            "Value": "French"
+        },
+        {
+            "Key": "de",
+            "Value": "German"
+        },
+        {
+            "Key": "el",
+            "Value": "Greek"
+        },
+        {
+            "Key": "gu",
+            "Value": "Gujarati"
+        },
+        {
+            "Key": "iw",
+            "Value": "Hebrew"
+        },
+        {
+            "Key": "hi",
+            "Value": "Hindi"
+        },
+        {
+            "Key": "hu",
+            "Value": "Hungarian"
+        },
+        {
+            "Key": "is",
+            "Value": "Icelandic"
+        },
+        {
+            "Key": "id",
+            "Value": "Indonesian"
+        },
+        {
+            "Key": "it",
+            "Value": "Italian"
+        },
+        {
+            "Key": "ja",
+            "Value": "Japanese"
+        },
+        {
+            "Key": "kn",
+            "Value": "Kannada"
+        },
+        {
+            "Key": "ko",
+            "Value": "Korean"
+        },
+        {
+            "Key": "lv",
+            "Value": "Latvian"
+        },
+        {
+            "Key": "lt",
+            "Value": "Lithuanian"
+        },
+        {
+            "Key": "ms",
+            "Value": "Malay"
+        },
+        {
+            "Key": "ml",
+            "Value": "Malayalam"
+        },
+        {
+            "Key": "mr",
+            "Value": "Marathi"
+        },
+        {
+            "Key": "no",
+            "Value": "Norwegian"
+        },
+        {
+            "Key": "pl",
+            "Value": "Polish"
+        },
+        {
+            "Key": "pt-PT",
+            "Value": "Portuguese(Portugal)"
+        },
+        {
+            "Key": "ro",
+            "Value": "Romanian"
+        },
+        {
+            "Key": "ru",
+            "Value": "Russian"
+        },
+        {
+            "Key": "sr",
+            "Value": "Serbian"
+        },
+        {
+            "Key": "zh-CN",
+            "Value": "Chinese(PRC)"
+        },
+        {
+            "Key": "sk",
+            "Value": "Slovak"
+        },
+        {
+            "Key": "sl",
+            "Value": "Slovenian"
+        },
+        {
+            "Key": "es",
+            "Value": "Spanish"
+        },
+        {
+            "Key": "sw",
+            "Value": "Swahili"
+        },
+        {
+            "Key": "sv",
+            "Value": "Swedish"
+        },
+        {
+            "Key": "ta",
+            "Value": "Tamil"
+        },
+        {
+            "Key": "te",
+            "Value": "Telugu"
+        },
+        {
+            "Key": "th",
+            "Value": "Thai"
+        },
+        {
+            "Key": "zh-TW",
+            "Value": "Chinese(Taiwan)"
+        },
+        {
+            "Key": "tr",
+            "Value": "Turkish"
+        },
+        {
+            "Key": "ur",
+            "Value": "Urdu"
+        },
+        {
+            "Key": "uk",
+            "Value": "Ukrainian"
+        },
+        {
+            "Key": "vi",
+            "Value": "Vietnamese"
+        },
+        {
+            "Key": "cy",
+            "Value": "Welsh"
+        }
+    ]
+}

@@ -2,11 +2,12 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, TextInput, Picker } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { ActivityIndicator } from 'react-native-paper';
+import { ActivityIndicator, Button } from 'react-native-paper';
 import ItemNote from '../components/ItemNote';
 import DatabaseService from '../services/databaseService';
+import TranslateService from '../services/translateService';
 
 class HomeScreen extends Component {
     static navigationOptions = e => {
@@ -42,6 +43,7 @@ class HomeScreen extends Component {
     };
 
     databaseService = new DatabaseService();
+    translate = new TranslateService();
 
     componentDidMount() {
         this.databaseService.initDatabase();
@@ -56,7 +58,7 @@ class HomeScreen extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1 }}>
+            /*<View style={{ flex: 1 }}>
                 {this.state.notes === null ? (
                     <>
                         <View>
@@ -72,6 +74,21 @@ class HomeScreen extends Component {
                         keyExtractor={item => item.id.toString()}
                     />
                 )}
+            </View>*/
+            <View>
+                <TextInput
+                    style={{ height: 40 }}
+                    placeholder="Type here to translate!"
+                    onChangeText={(text) => this.setState({ text })}
+                    value={this.state.text}
+                />
+                <Button onPress={() =>
+                    this.translate.getTranslation(this.state.text).then(resp => {
+                        this.setState({ text: resp.data[0][0][0] })
+                        console.log(resp.data[0][0][0])
+                    })
+                }> Translate
+                </Button>
             </View>
         );
     }
