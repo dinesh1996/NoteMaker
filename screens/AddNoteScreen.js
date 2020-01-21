@@ -11,9 +11,12 @@ class AddNoteScreen extends Component {
         return {
             title: 'Ajouter une note',
             headerRight: (
-                <Button onPress={this.save}>
-                    <Icon size={25} name="ios-add" style={{ padding: 25 }} />
-                </Button>
+                <Icon
+                    size={25}
+                    name={'ios-add'}
+                    style={{ padding: 25 }}
+                    onPress={e.navigation.getParam('save')}
+                />
             )
         };
     };
@@ -27,29 +30,37 @@ class AddNoteScreen extends Component {
         content: ''
     };
 
-    onChange = value => {
-        console.log('onChange', value);
+    onChangeTitle = value => {
         this.setState({
-            title: value,
+            title: value
+        });
+    };
+
+    onChangeContent = value => {
+        this.setState({
             content: value
         });
     };
 
     save = () => {
-        console.log('state', this.state);
-        this.props.addNote();
+        this.props.addNote(this.state);
     };
 
     render() {
         return (
             <View style={styles.container}>
-                <TextInput style={styles.title} onChangeText={this.onChange} placeholder="Title" />
+                <TextInput
+                    style={styles.title}
+                    onChangeText={this.onChangeTitle}
+                    placeholder="Title"
+                />
                 <TextInput
                     style={styles.text}
-                    onChangeText={this.onChange}
+                    onChangeText={this.onChangeContent}
                     multiline
                     placeholder="Content"
                 />
+                <Button title="ajouter" onPress={this.save} />
             </View>
         );
     }
@@ -81,4 +92,4 @@ const mapActionsToProps = payload => {
     };
 };
 
-export default connect(mapActionsToProps)(AddNoteScreen);
+export default connect(null, mapActionsToProps)(AddNoteScreen);

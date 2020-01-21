@@ -24,17 +24,24 @@ class Database {
     getNote(noteId) {
         return new Promise(resolve => {
             this.db.transaction(tx => {
-                tx.executeSql(`select * from notes where id = ?;`, [noteId], (trans, result) => {
-                    resolve(result);
-                });
+                tx.executeSql(
+                    `select * from notes where id = ?;`,
+                    [noteId],
+                    (trans, result) => {
+                        resolve(result);
+                    }
+                );
             });
         });
     }
 
-    addNote(title, content) {
+    async addNote(title, content) {
         return this.db.transaction(
             tx => {
-                tx.executeSql('insert into notes (title, content) values (?, ?)', [title, content]);
+                tx.executeSql(
+                    'insert into notes (title, content) values (?, ?)',
+                    [title, content]
+                );
             },
             null,
             this.getNotes
@@ -44,7 +51,10 @@ class Database {
     updateNote(title, nodeId) {
         this.db.transaction(
             tx => {
-                tx.executeSql(`update notes set title = ? where id = ?;`, [title, nodeId]);
+                tx.executeSql(`update notes set title = ? where id = ?;`, [
+                    title,
+                    nodeId
+                ]);
             },
             null,
             this.getNotes

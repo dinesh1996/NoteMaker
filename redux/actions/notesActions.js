@@ -16,8 +16,10 @@ export const getAll = () => {
 
 export const addNote = payload => {
     return dispatch => {
-        databaseService.addNote(payload.title, payload.content);
-        return dispatch({ type: NOTE_ADD, payload });
+        console.log('p', payload);
+        databaseService.addNote(payload.title, payload.content).then(data => {
+            return dispatch({ type: NOTE_ADD, data });
+        });
     };
 };
 
