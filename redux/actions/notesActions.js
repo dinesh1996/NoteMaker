@@ -9,6 +9,7 @@ export const getAll = () => {
     return dispatch => {
         databaseService.initDatabase();
         databaseService.getNotes().then(result => {
+            console.log('init', result);
             return dispatch({ type: NOTES_ALL, payload: result.rows._array });
         });
     };
@@ -17,9 +18,11 @@ export const getAll = () => {
 export const addNote = payload => {
     return dispatch => {
         console.log('p', payload);
-        databaseService.addNote(payload.title, payload.content).then(data => {
-            return dispatch({ type: NOTE_ADD, data });
-        });
+        databaseService.addNote(payload.title, payload.content).then(result => {
+            console.log('res', result)
+            return dispatch({ type: NOTE_ADD, result });
+        })
+
     };
 };
 

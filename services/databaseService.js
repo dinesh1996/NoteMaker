@@ -22,7 +22,9 @@ class Database {
     }
 
     getNote(noteId) {
-        return new Promise(resolve => {
+        console.log('enter2');
+        return new Promise((resolve, reject) => {
+            resolve('nique');
             this.db.transaction(tx => {
                 tx.executeSql(
                     `select * from notes where id = ?;`,
@@ -35,17 +37,26 @@ class Database {
         });
     }
 
-    async addNote(title, content) {
-        return this.db.transaction(
-            tx => {
+    addNote(title, content) {
+        console.log('enter', title, content);
+        return new Promise(resolve => {
+            this.db.transaction(tx => {
+                tx.executeSql('INSERT into notes VALUES (1,\'Salaud\',\'Connard\')', [], (trans, result) => {
+                    console.log('a', 'a')
+                    resolve(result);
+                });
+            })
+        }).then(x => { console.log('?') }).catch((err) => console.log('errno', err));
+        return new Promise(resolve => {
+            this.db.transaction(tx => {
                 tx.executeSql(
                     'insert into notes (title, content) values (?, ?)',
-                    [title, content]
-                );
-            },
-            null,
-            this.getNotes
-        );
+                    [title, content], (tx, result) => {
+                        console.log("marche fdp")
+                        resolve(result)
+                    });
+            });
+        })
     }
 
     updateNote(title, nodeId) {
