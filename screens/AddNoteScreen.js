@@ -1,22 +1,18 @@
 import React, { Component } from 'react';
-import { TextInput, View, StyleSheet, Button } from 'react-native';
+import { TextInput, View, StyleSheet, Button, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { addNote } from '../redux/actions/notesActions';
-
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
 class AddNoteScreen extends Component {
     static navigationOptions = e => {
         return {
             title: 'Ajouter une note',
             headerRight: (
-                <Icon
-                    size={25}
-                    name={'ios-add'}
-                    style={{ padding: 25 }}
-                    onPress={e.navigation.getParam('save')}
-                />
+                <></>
             )
         };
     };
@@ -46,6 +42,18 @@ class AddNoteScreen extends Component {
         this.props.addNote(this.state);
     };
 
+    openCamera = () => {
+        ImagePicker.launchCameraAsync({}).then(data => {
+            this.setState({ image: data.uri });
+            console.log(data);
+        });
+    };
+
+    askPermission = () => {
+        Permissions.askAsync(Permissions.CAMERA_ROLL);
+        Permissions.askAsync(Permissions.CAMERA);
+    };
+
     render() {
         return (
             <View style={styles.container}>
@@ -60,7 +68,14 @@ class AddNoteScreen extends Component {
                     multiline
                     placeholder="Content"
                 />
-                <Button title="ajouter" onPress={this.save} />
+                {this.state.image ? <Image
+                    style={{ flex: 1 }}
+                    source={{
+                        uri: `${this.state.image}`
+                    }}
+                /> : <Button title="Ajouter une image" onPress={this.openCamera} />}
+
+                <Button title="Enregistrer la note" onPress={this.save} />
             </View>
         );
     }
