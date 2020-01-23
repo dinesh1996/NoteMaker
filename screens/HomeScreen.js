@@ -2,7 +2,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { ActivityIndicator } from 'react-native-paper';
@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { SearchBar } from 'react-native-elements';
 import ItemNote from '../components/ItemNote';
-import { getAll } from '../redux/actions/notesActions';
+import { getAll, deleteNote } from '../redux/actions/notesActions';
 
 class HomeScreen extends Component {
     static navigationOptions = e => {
@@ -64,6 +64,7 @@ class HomeScreen extends Component {
             notes: this.props.notes,
             dataSource: this.props.notes
         });
+        console.log(this.state.dataSource);
     }
 
     search = text => {
@@ -89,8 +90,8 @@ class HomeScreen extends Component {
         });
     };
 
-    delete = () => {
-        console.info('delete');
+    delete = id => {
+        // this.props.deleteNote(id);
     };
 
     ListViewItemSeparator = () => {
@@ -107,47 +108,37 @@ class HomeScreen extends Component {
 
     render() {
         return (
-            <View
-                style={{
-                    flex: 1
-                }}
-            >
+            <View style={{ flex: 1 }}>
                 {this.state.dataSource === null ? (
                     <View>
                         <ActivityIndicator animating size="large" />
                     </View>
                 ) : (
-                        <>
-                            <View>
-                                <SearchBar
-                                    round
-                                    showCancel
-                                    cancelIcon
-                                    lightTheme
-                                    platform={Platform.OS === 'ios' ? 'ios' : 'android'}
-                                    searchIcon={{
-                                        size: 24
-                                    }}
-                                    placeholder="Search..."
-                                    onChangeText={text => this.searchFilterFunction(text)}
-                                    onClear={text => this.searchFilterFunction('')}
-                                    value={this.state.search}
-                                />{' '}
-                                <FlatList
-                                    data={this.state.dataSource}
-                                    ItemSeparatorComponent={this.ListViewItemSeparator}
-                                    renderItem={e => (
-                                        <ItemNote
-                                            key={e.item.id}
-                                            note={e.item}
-                                            onDelete={this.delete}
-                                        />
-                                    )}
-                                    keyExtractor={item => item.id.toString()}
-                                />{' '}
-                            </View>{' '}
-                        </>
-                    )}{' '}
+                    <View>
+                        <SearchBar
+                            round
+                            showCancel
+                            cancelIcon
+                            lightTheme
+                            platform={Platform.OS === 'ios' ? 'ios' : 'android'}
+                            searchIcon={{
+                                size: 24
+                            }}
+                            placeholder="Search..."
+                            onChangeText={text => this.searchFilterFunction(text)}
+                            onClear={text => this.searchFilterFunction('')}
+                            value={this.state.search}
+                        />
+                        <FlatList
+                            data={this.state.dataSource}
+                            ItemSeparatorComponent={this.ListViewItemSeparator}
+                            renderItem={e => (
+                                <ItemNote key={e.item.id} note={e.item} onDelete={this.delete} />
+                            )}
+                            keyExtractor={item => item.id.toString()}
+                        />
+                    </View>
+                )}
             </View>
         );
     }
@@ -161,7 +152,8 @@ const mapStateToProps = stateStore => {
 
 const mapActionsToProps = payload => {
     return {
-        getAll: bindActionCreators(getAll, payload)
+        getAll: bindActionCreators(getAll, payload),
+        deleteNote: bindActionCreators(deleteNote, payload)
     };
 };
 

@@ -18,14 +18,27 @@ export const getAll = () => {
 export const addNote = payload => {
     console.log('pay', payload);
     return dispatch => {
-        databaseService.addNote(payload.id, payload.title, payload.content, payload.image).then(result => {
-            console.log('res', result)
-            return dispatch({ type: NOTE_ADD, result });
-        });
-
+        databaseService
+            .addNote(payload.id, payload.title, payload.content, payload.image)
+            .then(result => {
+                console.log('res', result);
+                return dispatch({ type: NOTE_ADD, result });
+            });
     };
 };
 
+export const deleteNote = payload => {
+    console.log('pay', payload);
+    return dispatch => {
+        databaseService.deleteNote(payload.id).then(result => {
+            console.log('res', result);
+            return dispatch({
+                type: NOTE_ADD,
+                result
+            });
+        });
+    };
+};
 // export const deleteAsync = noteTitle => {
 //     return dispatch => {
 //         AsyncStorage.getItem('NOTES').then(data => {

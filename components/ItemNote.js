@@ -28,7 +28,7 @@ class ItemNote extends Component {
 
     render() {
         return (
-            <SwipeRow leftOpenValue={80} rightOpenValue={-80} key={this.state.data.name}>
+            <SwipeRow leftOpenValue={80} rightOpenValue={-80} key={this.state.data.title}>
                 <View
                     style={{
                         alignItems: 'center',
@@ -41,19 +41,19 @@ class ItemNote extends Component {
                     <Button
                         style={{ padding: 10 }}
                         title="Suppr."
-                        onPress={() => this.props.onDelete(this.state.data.name)}
+                        onPress={() => this.props.onDelete(this.state.data.title)}
                     />
                     <Button
                         style={{ padding: 20 }}
                         title="lock ."
-                        onPress={() => this.props.onDelete(this.state.data.name)}
+                        onPress={() => this.props.onDelete(this.state.data.title)}
                     />
                 </View>
                 <View style={styles.standaloneRowFront}>
                     <View
                         style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}
                     >
-                        <Text> {this.state.data.name} </Text>
+                        <Text> {this.state.data.title} </Text>
                     </View>
                 </View>
             </SwipeRow>
