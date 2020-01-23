@@ -2,12 +2,13 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { ActivityIndicator } from 'react-native-paper';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { SearchBar } from 'react-native-elements';
 import ItemNote from '../components/ItemNote';
 import { getAll } from '../redux/actions/notesActions';
 
@@ -18,10 +19,8 @@ class HomeScreen extends Component {
             headerRight: (
                 <Icon
                     size={25}
-                    name="ios-add"
-                    style={{
-                        padding: 25
-                    }}
+                    name="md-add"
+                    style={{ padding: 10 }}
                     onPress={() => {
                         e.navigation.push('Authentication');
                     }}
@@ -31,7 +30,7 @@ class HomeScreen extends Component {
                 <Icon
                     size={25}
                     name="md-share"
-                    style={{ padding: 25 }}
+                    style={{ marginStart: 10 }}
                     onPress={() => {
                         e.navigation.push('Sharing');
                     }}
@@ -45,34 +44,119 @@ class HomeScreen extends Component {
         notes: PropTypes.array.isRequired
     };
 
-    state = {
-        notes: null
-    };
+    constructor(props) {
+        super(props);
+        // setting default state
+        this.state = {
+            search: '',
+            notes: null,
+            arrayholder: []
+        };
+    }
 
     componentDidMount() {
         this.props.getAll();
-        this.setState({ notes: this.props.notes });
+        const init = [
+            {
+                id: 1,
+                name: 'title1'
+            },
+            {
+                id: 2,
+                name: 'John'
+            },
+            {
+                id: 3,
+                name: 'Cersi'
+            },
+            {
+                id: 4,
+                name: 'Cersi1'
+            }
+        ];
+        this.setState({
+            notes: init,
+            dataSource: init
+        });
     }
+
+    search = text => {
+        console.log(text);
+    };
+
+    clear = () => {
+        this.search.clear();
+    };
+
+    searchFilterFunction = text => {
+        // passing the inserted text in textinput
+        const newData = this.state.notes.filter(item => {
+            const itemData = item.name ? item.name.toUpperCase() : ''.toUpperCase();
+            const textData = text.toUpperCase();
+
+            return itemData.indexOf(textData) > -1;
+        });
+
+        this.setState({
+            dataSource: newData,
+            search: text
+        });
+    };
 
     delete = () => {
         console.info('delete');
     };
 
+    ListViewItemSeparator = () => {
+        return (
+            <View
+                style={{
+                    height: 1,
+
+                    backgroundColor: '#fff'
+                }}
+            />
+        );
+    };
+
     render() {
         return (
             <View style={{ flex: 1 }}>
-                {this.state.notes === null ? (
+                {this.state.dataSource === null ? (
                     <View>
-                        <ActivityIndicator />
+                        <ActivityIndicator animating size="large" />
                     </View>
                 ) : (
-                    <FlatList
-                        data={this.state.notes}
-                        renderItem={e => (
-                            <ItemNote key={e.item.id} note={e.item} onDelete={this.delete} />
-                        )}
-                        keyExtractor={item => item.id.toString()}
-                    />
+                    <>
+                        <View>
+                            <SearchBar
+                                round
+                                showCancel
+                                cancelIcon
+                                lightTheme
+                                platform={Platform.OS === 'ios' ? 'ios' : 'android'}
+                                searchIcon={{
+                                    size: 24
+                                }}
+                                placeholder="Search..."
+                                onChangeText={text => this.searchFilterFunction(text)}
+                                onClear={text => this.searchFilterFunction('')}
+                                value={this.state.search}
+                            />
+                            <FlatList
+                                data={this.state.dataSource}
+                                ItemSeparatorComponent={this.ListViewItemSeparator}
+                                renderItem={e => (
+                                    <ItemNote
+                                        key={e.item.id}
+                                        note={e.item}
+                                        onDelete={this.delete}
+                                    />
+                                )}
+                                keyExtractor={item => item.id.toString()}
+                            />
+                        </View>
+                    </>
                 )}
             </View>
         );

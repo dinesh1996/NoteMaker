@@ -60,6 +60,20 @@ class Database {
             this.getNotes
         );
     }
+
+    search(text) {
+        return new Promise(resolve => {
+            this.db.transaction(tx => {
+                tx.executeSql(
+                    `select * from notes where title like '%?%' `,
+                    [text],
+                    (trans, result) => {
+                        resolve(result);
+                    }
+                );
+            });
+        });
+    }
 }
 
 export default Database;
