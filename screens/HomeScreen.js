@@ -9,7 +9,6 @@ import ItemNote from '../components/ItemNote';
 import DatabaseService from '../services/databaseService';
 import TranslateService from '../services/translateService';
 import PropTypes from 'prop-types';
-import Icon from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAll } from '../redux/actions/notesActions';
