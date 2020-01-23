@@ -13,6 +13,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAll } from '../redux/actions/notesActions';
 
+import JsonData from '../services/translateList.json';
+
 class HomeScreen extends Component {
     static navigationOptions = e => {
         return {
@@ -51,7 +53,8 @@ class HomeScreen extends Component {
     translate = new TranslateService();
 
     state = {
-        notes: null
+        notes: null,
+        language: "fr"
     };
 
     componentDidMount() {
@@ -62,6 +65,12 @@ class HomeScreen extends Component {
     delete = () => {
         console.info('delete');
     };
+
+    countryList = () => {
+        return (JsonData.data.map((x, i) => {
+            return (<Picker.Item label={x.Value} key={i} value={x.Key} />)
+        }));
+    }
 
     render() {
         return (
@@ -86,14 +95,35 @@ class HomeScreen extends Component {
                                 value={this.state.text}
                             />
                             <Button onPress={() =>
-                                this.translate.getTranslation(this.state.text).then(resp => {
-                                    this.setState({ text: resp.data[0][0][0] })
-                                    console.log(resp.data[0][0][0])
-                                })
+                                this.translate.getTranslation(this.state.text,
+                                    JsonData.data.find(elem => elem.Key == this.state.originLanguage).Key,
+                                    JsonData.data.find(elem => elem.Key == this.state.traductionLanguage).Key).then(resp => {
+                                        this.setState({ text: resp.data[0][0][0] })
+                                        console.log(resp.data[0][0][0])
+                                    })
                             }> Translate
-                        </Button>
+                            </Button>
+
+                            <Picker
+                                selectedValue={this.state.originLanguage}
+                                style={{ height: 50, width: 200 }}
+                                onValueChange={(itemValue, itemIndex) =>
+                                    this.setState({ originLanguage: itemValue })
+                                }>
+                                {this.countryList()}
+                            </Picker>
+
+                            <Picker
+                                selectedValue={this.state.traductionLanguage}
+                                style={{ height: 50, width: 200 }}
+                                onValueChange={(itemValue, itemIndex) =>
+                                    this.setState({ traductionLanguage: itemValue })
+                                }>
+                                {this.countryList()}
+                            </Picker>
                         </View>
-                    )}
+                    )
+                }
             </View>
             /*<View>
                 <TextInput
