@@ -58,7 +58,7 @@ class HomeScreen extends Component {
 
     render() {
         return (
-            /*<View style={{ flex: 1 }}>
+            <View style={{ flex: 1 }}>
                 {this.state.notes === null ? (
                     <>
                         <View>
@@ -66,16 +66,31 @@ class HomeScreen extends Component {
                         </View>{' '}
                     </>
                 ) : (
-                    <FlatList
-                        data={this.state.notes}
-                        renderItem={e => (
-                            <ItemNote key={e.item.id} note={e.item} onDelete={this.delete} />
-                        )}
-                        keyExtractor={item => item.id.toString()}
-                    />
-                )}
-            </View>*/
-            <View>
+                        <View>
+                            <FlatList
+                                data={this.state.notes}
+                                renderItem={e => (
+                                    <ItemNote key={e.item.id} note={e.item} onDelete={this.delete} />
+                                )}
+                                keyExtractor={item => item.id.toString()}
+                            />
+                            <TextInput
+                                style={{ height: 40 }}
+                                placeholder="Type here to translate!"
+                                onChangeText={(text) => this.setState({ text })}
+                                value={this.state.text}
+                            />
+                            <Button onPress={() =>
+                                this.translate.getTranslation(this.state.text).then(resp => {
+                                    this.setState({ text: resp.data[0][0][0] })
+                                    console.log(resp.data[0][0][0])
+                                })
+                            }> Translate
+                        </Button>
+                        </View>
+                    )}
+            </View>
+            /*<View>
                 <TextInput
                     style={{ height: 40 }}
                     placeholder="Type here to translate!"
@@ -89,7 +104,7 @@ class HomeScreen extends Component {
                     })
                 }> Translate
                 </Button>
-            </View>
+            </View>*/
         );
     }
 }
