@@ -7,6 +7,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { addNote } from '../redux/actions/notesActions';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
+
+import { getAll } from '../redux/actions/notesActions';
 class AddNoteScreen extends Component {
     static navigationOptions = e => {
         return {
@@ -22,6 +24,7 @@ class AddNoteScreen extends Component {
     };
 
     state = {
+        id: null,
         title: '',
         content: ''
     };
@@ -38,8 +41,13 @@ class AddNoteScreen extends Component {
         });
     };
 
-    save = () => {
+    save = async () => {
+        const id = Math.round(Math.random() * 10);
+        if (this.state.id == null)
+            await this.setState({ id: id })
+        console.log('state', this.state)
         this.props.addNote(this.state);
+        this.props.getAll();
     };
 
     openCamera = () => {
@@ -68,7 +76,7 @@ class AddNoteScreen extends Component {
                     multiline
                     placeholder="Content"
                 />
-                {this.state.image ? <Image
+                {this.state.image != null && this.state.image != undefined ? <Image
                     style={{ flex: 1 }}
                     source={{
                         uri: `${this.state.image}`
@@ -103,7 +111,8 @@ const styles = StyleSheet.create({
 
 const mapActionsToProps = payload => {
     return {
-        addNote: bindActionCreators(addNote, payload)
+        addNote: bindActionCreators(addNote, payload),
+        getAll: bindActionCreators(getAll, payload)
     };
 };
 

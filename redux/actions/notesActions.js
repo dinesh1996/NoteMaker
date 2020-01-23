@@ -10,18 +10,18 @@ export const getAll = () => {
         databaseService.initDatabase();
         databaseService.getNotes().then(result => {
             console.log('init', result);
-            return dispatch({ type: NOTES_ALL, payload: result.rows._array });
+            return dispatch({ type: NOTES_ALL, payload: result });
         });
     };
 };
 
 export const addNote = payload => {
+    console.log('pay', payload);
     return dispatch => {
-        console.log('p', payload);
-        databaseService.addNote(payload.title, payload.content).then(result => {
+        databaseService.addNote(payload.id, payload.title, payload.content, payload.image).then(result => {
             console.log('res', result)
             return dispatch({ type: NOTE_ADD, result });
-        })
+        });
 
     };
 };

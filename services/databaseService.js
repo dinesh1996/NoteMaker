@@ -1,5 +1,7 @@
 import * as SQLite from 'expo-sqlite';
 
+import { AsyncStorage } from 'react-native';
+
 class Database {
     db = SQLite.openDatabase('db.db');
 
@@ -11,53 +13,38 @@ class Database {
         });
     }
 
-    getNotes() {
-        return new Promise(resolve => {
-            this.db.transaction(tx => {
-                tx.executeSql(`select * from notes`, [], (trans, result) => {
-                    resolve(result);
-                });
-            });
-        });
+    async getNotes() {
+        let notes = await AsyncStorage.getItem('NOTES');
+        console.log(' notes', notes)
+        let tab = [];
+        if (notes != null) {
+            tab = JSON.parse(notes);
+        }
+        tab = tab.filter(n => n)
+        console.log('clean', tab)
+        return tab;
     }
 
-    getNote(noteId) {
-        console.log('enter2');
-        return new Promise((resolve, reject) => {
-            resolve('nique');
-            this.db.transaction(tx => {
-                tx.executeSql(
-                    `select * from notes where id = ?;`,
-                    [noteId],
-                    (trans, result) => {
-                        resolve(result);
-                    }
-                );
-            });
-
-        });
+    async getNote(noteId) {
+        let notes = await AsyncStorage.getItem('NOTES');
+        if (notes != null) {
+            tab = JSON.parse(notes);
+            return notes[noteId];
+        }
+        return null;
     }
 
-    addNote(title, content) {
-        console.log('enter', title, content);
-        return new Promise(resolve => {
-            this.db.transaction(tx => {
-                tx.executeSql('INSERT into notes VALUES (1,\'Salaud\',\'Connard\')', [], (trans, result) => {
-                    console.log('a', 'a')
-                    resolve(result);
-                });
-            })
-        }).then(x => { console.log('?') }).catch((err) => console.log('errno', err));
-        return new Promise(resolve => {
-            this.db.transaction(tx => {
-                tx.executeSql(
-                    'insert into notes (title, content) values (?, ?)',
-                    [title, content], (tx, result) => {
-                        console.log("marche fdp")
-                        resolve(result)
-                    });
-            });
-        })
+    async addNote(id, title, content, image) {
+        let notes = await AsyncStorage.getItem('NOTES');
+        let tab = [];
+        if (notes != null) {
+            tab = JSON.parse(notes);
+        }
+        console.log('t', title, content, image, id)
+        tab[id] = { id: id, title: title, content: content, image: image };
+        console.log('test', tab);
+        await AsyncStorage.setItem('NOTES', JSON.stringify(tab));
+        return tab[id];
     }
 
     updateNote(title, nodeId) {
@@ -73,14 +60,16 @@ class Database {
         );
     }
 
-    deleteNote(noteId) {
-        this.db.transaction(
-            tx => {
-                tx.executeSql(`delete from notes where id = ?;`, [noteId]);
-            },
-            null,
-            this.getNotes
-        );
+    async deleteNote(noteId) {
+        let notes = await AsyncStorage.getItem('NOTES');
+        if (notes != null) {
+            tab = JSON.parse(notes);
+            tab = tab.filter(function (obj) {
+                return obj.id !== noteId;
+            });
+            await AsyncStorage.setItem('NOTES', JSON.stringify(tab));
+        }
+        return null;
     }
 }
 

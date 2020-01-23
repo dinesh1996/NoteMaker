@@ -23,7 +23,7 @@ class ItemNote extends Component {
             
             this.setState({ data: resp.data });
         }); */
-        this.setState({ data: this.props.note });
+        this.setState({ data: this.props.note, dataSource: this.props.dataSource });
     }
 
     render() {
